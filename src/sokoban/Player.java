@@ -15,7 +15,11 @@ public class Player {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
-        // TODO code application logic here
+        Board b = new Board("Hard-Coded Example", 6, 9) ;
+        b.dessinerColonne();
+        b.dessinerLigne();
+        b.addHorizontalWall(0, 0, 6);
+        
     }
     
 }
