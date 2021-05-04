@@ -48,7 +48,10 @@ public class Board {
             System.out.println(" ");
         }
     }
-
+    
+    void dessinerContenu(){
+        String[][]content = new String[ligne][colonne];
+    }
     /**
      * Méthode permettant d'afficher les colonnes sur le haut de notre Board
      */
@@ -62,26 +65,23 @@ public class Board {
     }
 
     void addHorizontalWall(int lig, int col, int length) {
-       
         for(int i = 0; i < length; i++){
            wall.add(new Position(lig, col+i));
        }
-        
-        for (Position s : wall)
-            System.out.print(s.col + " " + s.row);
-        System.out.println();
     }
     
     void addVerticalWall(int lig, int col, int length){
-        
+        for(int i = 0; i < length; i++){
+            wall.add(new Position(lig+i, col));
+        }
     }
     
     void addBox(int lig, int col){
-        
+        caisse.add(new Position(lig,col));
     }
     
     void addTarget(int lig, int col){
-        
+        target.add(new Position(lig,col));
     }
     
     void setPosition(int lig, int col){
