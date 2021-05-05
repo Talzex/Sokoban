@@ -5,8 +5,8 @@
  */
 package sokoban;
 
+import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.Set;
 
 /**
@@ -19,11 +19,11 @@ public class Board {
     int ligne;
     int colonne;
     
-    Set<Position> wall = new HashSet<>();
+    Set<Position> mur = new HashSet<>();
     Set<Position> caisse = new HashSet<>();
-    Set<Position> target = new HashSet<>();
-    Set<Position> vide = new HashSet<>();
-    Set<Position> joueur = new HashSet<>();
+    Set<Position> cibles = new HashSet<>();
+    
+    Position joueur;
     
 
     /**
@@ -38,53 +38,77 @@ public class Board {
         this.ligne = ligne;
         this.colonne = colonne;
     }
-
-    /**
-     * Méthode permettant d'afficher les lignes des côtés de notre Board
-     */
-    void dessinerLigne() {
-        for (int i = 0; i < ligne; i++) {
-            System.out.print(i);
-            System.out.println(" ");
-        }
-    }
     
+    /**
+     * Méthode permettant d'afficher les positions contenu dans nos ensemble
+     */
     void dessinerContenu(){
         String[][]content = new String[ligne][colonne];
+        for (String[] row : content) {
+            Arrays.fill(row, ".");
+        }
+        mur.forEach((Position condition) -> {
+            content[condition.row][condition.col] = "#";
+        });
+        caisse.forEach((Position condition) -> {
+            content[condition.row][condition.col] = "C";
+        });
+        cibles.forEach((Position condition) -> {
+            content[condition.row][condition.col] = "x";
+        });
+        content[joueur.row][joueur.col] = "P";
+        for(int i = 0; i < ligne; i++){
+             System.out.print(i + " ");
+            for(int u = 0; u < colonne; u++){
+                System.out.print(content[i][u] + " ");
+            }
+            System.out.println("");
+        }
+   
     }
     /**
      * Méthode permettant d'afficher les colonnes sur le haut de notre Board
      */
-    void dessinerColonne() {
+    void dessinerLigne() {
         System.out.print("  ");
-        for (int i = 0; i < colonne; i++) {
+        for(int i = 0; i < colonne; i ++){
             System.out.print(i);
             System.out.print(" ");
         }
         System.out.println("");
     }
-
+    /**
+     * Méthode permettant d'ajouter dans notre ensemble mur les positions des murs horizontaux
+     */
     void addHorizontalWall(int lig, int col, int length) {
         for(int i = 0; i < length; i++){
-           wall.add(new Position(lig, col+i));
+           mur.add(new Position(lig, col+i));
        }
     }
-    
+    /**
+     * Méthode permettant d'ajouter dans notre ensemble mur les positions des murs verticaux
+     */
     void addVerticalWall(int lig, int col, int length){
         for(int i = 0; i < length; i++){
-            wall.add(new Position(lig+i, col));
+            mur.add(new Position(lig+i, col));
         }
     }
-    
+    /**
+     * Méthode permettant d'ajouter dans notre ensemble caisse les positions des caisses
+     */
     void addBox(int lig, int col){
         caisse.add(new Position(lig,col));
     }
-    
+    /**
+     * Méthode permettant d'ajouter dans notre ensemble cibles les positions des cibles
+     */
     void addTarget(int lig, int col){
-        target.add(new Position(lig,col));
+        cibles.add(new Position(lig,col));
     }
-    
+    /**
+     * Méthode permettant d'initialiser la position du Joueur
+     */
     void setPosition(int lig, int col){
-        
+        joueur = new Position(lig,col);
     }
 }

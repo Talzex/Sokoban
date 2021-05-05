@@ -10,7 +10,7 @@ package sokoban;
  * @author tduthil
  */
 public class Position {
-    final int row, col;
+     int row, col;
 
     /**
      * Constructeur de la classe Position utilisant 2 paramètres entiers.
