@@ -111,4 +111,6 @@ public class Board {
     void setPosition(int lig, int col){
         joueur = new Position(lig,col);
     }
+    
+    
 }
