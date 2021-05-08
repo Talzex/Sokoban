@@ -19,11 +19,11 @@ public class Board {
     int ligne;
     int colonne;
     
-    Set<Position> mur = new HashSet<>();
-    Set<Position> caisse = new HashSet<>();
-    Set<Position> cibles = new HashSet<>();
+    public Set<Position> mur = new HashSet<>();
+    public Set<Position> caisse = new HashSet<>();
+    public Set<Position> cibles = new HashSet<>();
     
-    Position joueur;
+    public Position joueur;
     
 
     /**

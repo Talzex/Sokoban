@@ -23,4 +23,15 @@ public class Position {
         this.col = col;
 
     }
+    @Override
+    public boolean equals(Object o){
+        if(this == o){
+            return true;
+        }
+        if(getClass() != o.getClass()){
+            return false;
+        }
+        Position p = (Position) o;
+        return p.row == row && p.col == col;
+    }
 }

@@ -55,22 +55,75 @@ public class Player {
             for(int i = 0; i < coupSaisi.length(); i++){
                 switch(coupSaisi.charAt(i)){
             case 'U':
-                monter(b);
+                Mouvement(b, Direction.NORD);
                 break;
             case 'D':
-                desc(b);
+                Mouvement(b, Direction.SUD);
                 break;
             case 'L':
-                gauche(b);
+                Mouvement(b, Direction.OUEST);
                 break;
             case 'R':
-                droite(b);
+                Mouvement(b, Direction.EST);
                  break;
             default:
                 System.out.println("Saisie Incorrecte");
                 }
             }
     }
+   
+   public static void Mouvement(Board b, Direction d) {
+    boolean mur = false;
+    Position nextPosition;
+    if (d.equals(Direction.NORD) || d.equals(Direction.SUD)) {
+        nextPosition = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col);
+        mur = CollisionMur(b, nextPosition, d);
+        if (!mur) {
+            b.joueur.row += d.mvtVertical();
+        }
+    } else if (d.equals(Direction.EST) || d.equals(Direction.OUEST)) {
+        nextPosition = new Position(b.joueur.row, b.joueur.col + d.mvtHorizontal());
+        mur = CollisionMur(b, nextPosition, d);
+        if (!mur) {
+            b.joueur.col += d.mvtHorizontal();
+        }
+    }
+    /*if (d.equals(Direction.NORD) || d.equals(Direction.SUD)) {
+        nextPosition = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col);
+        if (!b.mur.equals(nextPosition)) {
+            b.joueur.row += d.mvtVertical();
+        } else {
+            System.out.println("Erreur");
+    }
+    } else if (d.equals(Direction.EST) || d.equals(Direction.OUEST)) {
+        nextPosition = new Position(b.joueur.row, b.joueur.col + d.mvtHorizontal());
+        if (!b.mur.equals(nextPosition)) {
+            b.joueur.row += d.mvtVertical();
+        } else {
+            System.out.println("Erreur");
+        }
+    }*/
+}   
+   
+   public static  boolean CollisionMur(Board b, Position p, Direction d){
+       boolean mur = false;
+       for(Position pmur : b.mur){
+            if(pmur.row == p.row && pmur.col == p.col){
+                 mur = true;
+            }
+        }
+        return mur;
+   }
+   
+   public static boolean CollisionCaisse(Board b, Position p, Direction d){
+       boolean caisse = false;
+       for(Position pbox : b.caisse){
+           if(pbox.row == p.row && pbox.col == p.col){
+               caisse = true;
+           }
+       }
+       return caisse;
+   }
     /**
      * Méthode permettant de lire le choix du joueur.
      *
@@ -81,64 +134,4 @@ public class Player {
         String coupSaisi = in.nextLine();
         return coupSaisi;
     }
-
-    private static void monter(Board b) {
-        boolean mur = false;
-        Position futurejoueur = new Position(b.joueur.row+Direction.NORD.mvtVertical(),b.joueur.col);
-        for(Position s : b.mur){
-            if(s.row == futurejoueur.row && s.col == futurejoueur.col){
-                 mur = true;
-            }
-        }
-        if(!mur){
-            b.joueur.row += Direction.NORD.mvtVertical();
-        }
-        /*if(!b.mur.equals(futurejoueur)){
-            b.joueur.row += Direction.NORD.mvtVertical();
-        } else {
-            System.out.println("Erreur");
-        }*/ 
-    }
-     
-
-
-    private static void desc(Board b) {
-        boolean mur = false;
-        Position futurejoueur = new Position(b.joueur.row+Direction.SUD.mvtVertical(),b.joueur.col);
-        for(Position s : b.mur){
-            if(s.row == futurejoueur.row && s.col == futurejoueur.col){
-                 mur = true;
-            }
-        }
-        if(!mur){
-            b.joueur.row += Direction.SUD.mvtVertical();
-        }
-    }
-
-    private static void gauche(Board b) {
-        boolean mur = false;
-        Position futurejoueur = new Position(b.joueur.row,b.joueur.col+Direction.OUEST.mvtHorizontal());
-        for(Position s : b.mur){
-            if(s.row == futurejoueur.row && s.col == futurejoueur.col){
-                 mur = true;
-            }
-        }
-        if(!mur){
-            b.joueur.col+=Direction.OUEST.mvtHorizontal();
-        }
-    }
-
-    private static void droite(Board b) {
-        boolean mur = false;
-        Position futurejoueur = new Position(b.joueur.row,b.joueur.col+Direction.EST.mvtHorizontal());
-        for(Position s : b.mur){
-            if(s.row == futurejoueur.row && s.col == futurejoueur.col){
-                 mur = true;
-            }
-        }
-        if(!mur){
-            b.joueur.col+=Direction.EST.mvtHorizontal();
-        }
-    }
-    
 }
