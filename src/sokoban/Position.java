@@ -5,6 +5,8 @@
  */
 package sokoban;
 
+import java.util.Objects;
+
 /**
  *
  * @author tduthil
@@ -23,15 +25,30 @@ public class Position {
         this.col = col;
 
     }
+    //find on the Internet
     @Override
-    public boolean equals(Object o){
-        if(this == o){
+    public int hashCode(){
+        return Objects.hash(row,col);
+    }
+
+    @Override
+    public boolean equals(Object obj) {
+        if (this == obj) {
             return true;
         }
-        if(getClass() != o.getClass()){
+        if (obj == null) {
             return false;
         }
-        Position p = (Position) o;
-        return p.row == row && p.col == col;
+        if (getClass() != obj.getClass()) {
+            return false;
+        }
+        final Position other = (Position) obj;
+        if (this.row != other.row) {
+            return false;
+        }
+        if (this.col != other.col) {
+            return false;
+        }
+        return true;
     }
 }

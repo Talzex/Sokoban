@@ -71,58 +71,34 @@ public class Player {
                 }
             }
     }
-   
+   // Faire Check Victoire + Poussé une boîte avec boîte
    public static void Mouvement(Board b, Direction d) {
-    boolean mur = false;
-    Position nextPosition;
-    if (d.equals(Direction.NORD) || d.equals(Direction.SUD)) {
-        nextPosition = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col);
-        mur = CollisionMur(b, nextPosition, d);
-        if (!mur) {
-            b.joueur.row += d.mvtVertical();
-        }
-    } else if (d.equals(Direction.EST) || d.equals(Direction.OUEST)) {
-        nextPosition = new Position(b.joueur.row, b.joueur.col + d.mvtHorizontal());
-        mur = CollisionMur(b, nextPosition, d);
-        if (!mur) {
-            b.joueur.col += d.mvtHorizontal();
+    Position nextPosition = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col + d.mvtHorizontal());
+    Position nextnextPosition = new Position(nextPosition.row + d.mvtVertical(), nextPosition.col + d.mvtHorizontal());
+    if (!CollisionMur(b, nextPosition)) {
+        b.joueur.row += d.mvtVertical();
+        b.joueur.col += d.mvtHorizontal();
+        if (CollisionCaisse(b, nextPosition) && !CollisionMur(b, nextnextPosition) && b.caisse.contains(nextPosition)) {
+            b.caisse.remove(nextPosition);
+            b.caisse.add(nextnextPosition);
         }
     }
-    /*if (d.equals(Direction.NORD) || d.equals(Direction.SUD)) {
-        nextPosition = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col);
-        if (!b.mur.equals(nextPosition)) {
-            b.joueur.row += d.mvtVertical();
-        } else {
-            System.out.println("Erreur");
-    }
-    } else if (d.equals(Direction.EST) || d.equals(Direction.OUEST)) {
-        nextPosition = new Position(b.joueur.row, b.joueur.col + d.mvtHorizontal());
-        if (!b.mur.equals(nextPosition)) {
-            b.joueur.row += d.mvtVertical();
-        } else {
-            System.out.println("Erreur");
-        }
-    }*/
-}   
+   }
    
-   public static  boolean CollisionMur(Board b, Position p, Direction d){
+   public static  boolean CollisionMur(Board b, Position p){
        boolean mur = false;
-       for(Position pmur : b.mur){
-            if(pmur.row == p.row && pmur.col == p.col){
-                 mur = true;
-            }
-        }
+       if(b.mur.contains(p)){
+           mur = true;
+       }
         return mur;
    }
    
-   public static boolean CollisionCaisse(Board b, Position p, Direction d){
-       boolean caisse = false;
-       for(Position pbox : b.caisse){
-           if(pbox.row == p.row && pbox.col == p.col){
-               caisse = true;
-           }
+   public static boolean CollisionCaisse(Board b, Position p){
+        boolean caisse = false;
+       if(b.caisse.contains(p)){
+           caisse = true;
        }
-       return caisse;
+        return caisse;
    }
     /**
      * Méthode permettant de lire le choix du joueur.
