@@ -15,7 +15,6 @@ import java.util.Scanner;
 public class Player {
 
     static Scanner in = new Scanner(System.in);
-    public static ArrayList<Position> coupsjoues = new ArrayList<>();
     /**
      * 
      * @param args the command line arguments
@@ -29,6 +28,7 @@ public class Player {
             b.dessinerLigne();
             b.dessinerContenu();
             win = VerifVictoire(b);
+            System.out.println("Position Joueur : " + b.joueur.toString());
         } while (!win);
         System.out.println("Partie Terminé");
     }
@@ -168,6 +168,8 @@ public class Player {
     private static boolean VerifVictoire(Board b) {
        return b.cibles.equals(b.caisse);
     }
+
+   
 
     
 }

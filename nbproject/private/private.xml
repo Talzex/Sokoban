@@ -6,7 +6,11 @@
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Board.java</file>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Player.java</file>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Direction.java</file>
-            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Position.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/FileBoardBuilder.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/TextBoardBuilderException.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/BuilderException.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/TextBoardBuilder.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Builder.java</file>
         </group>
     </open-files>
 </project-private>
