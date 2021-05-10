@@ -50,11 +50,11 @@ public class Board {
         mur.forEach((Position condition) -> {
             content[condition.row][condition.col] = "#";
         });
-        caisse.forEach((Position condition) -> {
-            content[condition.row][condition.col] = "C";
-        });
         cibles.forEach((Position condition) -> {
             content[condition.row][condition.col] = "x";
+        });
+        caisse.forEach((Position condition) -> {
+            content[condition.row][condition.col] = "C";
         });
         content[joueur.row][joueur.col] = "P";
         for(int i = 0; i < ligne; i++){
@@ -110,6 +110,15 @@ public class Board {
      */
     void setPosition(int lig, int col){
         joueur = new Position(lig,col);
+    }
+    
+    /**
+     * Méthode vérifiant si la Position est dans le Board
+     * @param p, la Position
+     * @return true si dans le Board, faux sinon
+     */
+    public  boolean DansBoard( Position p) {
+        return p.row >= 0 && p.row < ligne && p.col >= 0 && p.col < colonne;
     }
     
     
