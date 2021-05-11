@@ -18,9 +18,14 @@ public class Player {
     /**
      * 
      * @param args the command line arguments
+     * @throws sokoban.BuilderException
      */
-    public static void main(String[] args) {
-        Board b = new Board("Hard-Coded Example", 6, 9) ;
+    public static void main(String[] args) throws BuilderException {
+        play();
+    }
+    
+    public static void play() throws BuilderException{
+        Board b = textbuilder();
         boolean win;
         dessinerPlateau(b); 
         do{
@@ -28,9 +33,20 @@ public class Player {
             b.dessinerLigne();
             b.dessinerContenu();
             win = VerifVictoire(b);
-            System.out.println("Position Joueur : " + b.joueur.toString());
+            System.out.println("Position Joueur : (" + b.joueur.row + "," +  b.joueur.col + ")");
         } while (!win);
         System.out.println("Partie Terminé");
+    }
+    
+    public static Board textbuilder() throws BuilderException{
+       var builder = new TextBoardBuilder("A Simple Board") ;
+        builder.addRow("##########");
+        builder.addRow("#x.x#....#");
+        builder.addRow("#...CC.P.#");
+        builder.addRow("#........#");
+        builder.addRow("##########");
+        Board b = builder.build();
+        return b;
     }
    
     /**
@@ -40,7 +56,7 @@ public class Player {
     public static  void dessinerPlateau(Board b){
         
         b.dessinerLigne();
-        b.addHorizontalWall(0, 2, 4);
+        /*b.addHorizontalWall(0, 2, 4);
         b.addHorizontalWall(1, 0, 3);
         b.addHorizontalWall(1, 5, 4);
         b.addVerticalWall(2, 0, 4);
@@ -52,9 +68,11 @@ public class Player {
         b.addTarget(3, 3);
         b.addBox(2, 6);
         b.addBox(2, 5);
-        b.setPosition(4, 6);
+        b.setPosition(4, 6);*/
         b.dessinerContenu();
     }
+    
+    
     /**
      * Méthode permettant d'effectuer un mouvement selon une Direction donnée
      * @param b, le Board

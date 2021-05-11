@@ -25,10 +25,13 @@ public class Position {
         this.col = col;
 
     }
-    //find on the Internet
+
     @Override
-    public int hashCode(){
-        return Objects.hash(row,col);
+    public int hashCode() {
+        int hash = 7;
+        hash = 53 * hash + this.row;
+        hash = 53 * hash + this.col;
+        return hash;
     }
 
     @Override
@@ -51,4 +54,5 @@ public class Position {
         }
         return true;
     }
+    
 }
