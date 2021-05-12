@@ -77,7 +77,6 @@ public class Board {
         }
         System.out.println("");
     }
-
     /**
      * Méthode permettant d'ajouter dans notre ensemble mur les positions des
      * murs horizontaux

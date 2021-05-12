@@ -30,25 +30,24 @@ public class TextBoardBuilder implements Builder {
     public Board build() throws BuilderException {
         int o = 0;
         Board b = new Board(nom, ligne, colonne);
-        for (int u = 0; u < ligne; u++) {
-            for (int i = 0; i < colonne; i++) {
-                char item = niveau.charAt(o);
-                switch (item) {
-                    case '#':
-                        b.mur.add(new Position(u, i));
-                        break;
-                    case 'C':
-                        b.caisse.add(new Position(u, i));
-                        break;
-                    case 'P':
-                        b.joueur = new Position(u, i);
-                        break;
-                    case 'x':
-                        b.cibles.add(new Position(u, i));
-                        break;
+        try {
+            for (int u = 0; u < ligne; u++) {
+                for (int i = 0; i < colonne; i++) {
+                    char item = niveau.charAt(o);
+                    switch (item) {
+                        case '#': b.mur.add(new Position(u, i));break;
+                        case 'C':b.caisse.add(new Position(u, i));break;
+                        case 'P':b.joueur = new Position(u, i);break;
+                        case 'x':b.cibles.add(new Position(u, i));break;
+                    }
+                    o++;
                 }
-                o++;
             }
+            if(b.caisse.size() != b.cibles.size()){
+                throw new BuilderException("Il n'y a pas le même nombre caisses et de cibles");
+            }
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new BuilderException("Toute les lignes ne sont égales entre elles");
         }
         return b;
     }
