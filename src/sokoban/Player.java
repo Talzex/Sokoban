@@ -39,7 +39,7 @@ public class Player {
         
     }
 
-    private static Board textbuilder() throws BuilderException {
+     static Board textbuilder() throws BuilderException {
         var builder = new TextBoardBuilder("A Simple Board");
         builder.addRow("##########");
         builder.addRow("#.x.x#...#");
@@ -50,7 +50,7 @@ public class Player {
         return b;
     }
     
-    private static Board filebuilder() throws BuilderException{
+     static Board filebuilder() throws BuilderException{
         var filebuilder = new FileBoardBuilder(".\\data\\level1.txt");
         Board b = filebuilder.build();
         return b;
@@ -59,7 +59,7 @@ public class Player {
      * Dessine le plateau 
      * @param b, le Board
      */
-    public static void dessinerPlateau(Board b) {
+     static void dessinerPlateau(Board b) {
 
         b.dessinerLigne();
         /*b.addHorizontalWall(0, 2, 4);
@@ -83,7 +83,7 @@ public class Player {
      * Méthode permettant d'effectuer un mouvement selon une Direction donnée
      * @param b, le Board
      */
-    static void EffectuerMouvement(Board b) {
+     static void EffectuerMouvement(Board b) {
         System.out.println("> Quelle série de mouvements voulez-vous effectuer ? U,D,L,R ");
         String coupSaisi = LireSaisieMouvement(b).toUpperCase();
         for (int i = 0; i < coupSaisi.length(); i++) {
@@ -103,7 +103,7 @@ public class Player {
      * @param b, le Board
      * @param d, la Direction souhaitée
      */
-    public static void Deplacement(Board b, Direction d) {
+     static void Deplacement(Board b, Direction d) {
         Position nextP = new Position(b.joueur.row + d.mvtVertical(), b.joueur.col + d.mvtHorizontal());
         Position nextP2 = nextP;
         if (!CollisionMur(b, nextP) && b.DansBoard(nextP)) {
@@ -122,7 +122,7 @@ public class Player {
      * @param p2, la position venant après p
      * @param d, la Direction souhaitée
      */
-    private static void BougerCaisse(Board b, Position p, Position p2, Direction d) {
+     static void BougerCaisse(Board b, Position p, Position p2, Direction d) {
         do {
             p2 = new Position(p2.row + d.mvtVertical(), p2.col + d.mvtHorizontal());
         } while (CollisionCaisse(b, p2));
@@ -140,7 +140,7 @@ public class Player {
      * @param p, la Position
      * @return true ssi il y un mur, faux sinon
      */
-    public static boolean CollisionMur(Board b, Position p) {
+     static boolean CollisionMur(Board b, Position p) {
         boolean mur = false;
         if (b.mur.contains(p)) {
             mur = true;
@@ -154,7 +154,7 @@ public class Player {
      * @param p, la Position
      * @return true ssi il y une caisse, faux sinon
      */
-    public static boolean CollisionCaisse(Board b, Position p) {
+     static boolean CollisionCaisse(Board b, Position p) {
         boolean caisse = false;
         if (b.caisse.contains(p)) {
             caisse = true;
@@ -167,7 +167,7 @@ public class Player {
      * @param b, Board sur lequelle on joue
      * @return la Position choisit
      */
-    static String LireSaisieMouvement(Board b) {
+     private static String LireSaisieMouvement(Board b) {
         String coupSaisi = in .nextLine();
         return coupSaisi;
     }
@@ -178,7 +178,7 @@ public class Player {
      * @param b, Board sur lequelle on joue
      * @return true si les caisses sur les cibles, faux sinon
      */
-    private static boolean VerifVictoire(Board b) {
+     static boolean VerifVictoire(Board b) {
         return b.cibles.equals(b.caisse);
     }
 }

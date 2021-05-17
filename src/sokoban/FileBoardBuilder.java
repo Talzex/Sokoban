@@ -22,6 +22,11 @@ public class FileBoardBuilder implements Builder {
         this.chemin = chemin;
     }
 
+    /**
+     * Méthode permettant de produire un Board à partir d'un fichier texte
+     * @return un Board
+     * @throws BuilderException
+     */
     @Override
     public Board build() throws BuilderException {
         Board b = null;

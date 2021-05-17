@@ -10,6 +10,9 @@ package sokoban;
  * @author tduthil
  */
 class BuilderException extends Exception {
+    /**
+     * Constructeur de la classe BuilderException
+     */
     public BuilderException(String s){
         System.out.println(s);
     }

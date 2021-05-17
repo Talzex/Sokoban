@@ -3,12 +3,15 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Board.java</file>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Player.java</file>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Direction.java</file>
-            <file>file:/V:/S2/POO/Sokoban/src/sokoban/FileBoardBuilder.java</file>
-            <file>file:/V:/S2/POO/Sokoban/src/sokoban/TextBoardBuilder.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Administrator.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Database.java</file>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Position.java</file>
-            <file>file:/V:/S2/POO/Sokoban/data/level1.txt</file>
+            <file>file:/V:/S2/POO/Sokoban/test/sokoban/BoardNGTest.java</file>
+            <file>file:/V:/S2/POO/Sokoban/test/sokoban/PlayerNGTest.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/DatabaseException.java</file>
         </group>
     </open-files>
 </project-private>
