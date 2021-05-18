@@ -26,7 +26,7 @@ public class TextBoardBuilder implements Builder {
      */
     void addRow(String row) {
         ligne++;
-        colonne = row.length();
+        colonne = row.length()-1;
         niveau = niveau.concat(row);
     }
 

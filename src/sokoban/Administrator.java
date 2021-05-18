@@ -5,6 +5,7 @@
  */
 package sokoban;
 
+import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -19,8 +20,10 @@ public class Administrator {
     /**
      * 
      * @param args the command line arguments
+     * @throws java.sql.SQLException
+     * @throws sokoban.BuilderException
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws SQLException, BuilderException {
         boolean encore = true;
         while (encore) {
             System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
@@ -44,14 +47,23 @@ public class Administrator {
                     db.listerBoards();
                     break;
                 case "3":
-                    db.monterBoard();
+                    db.listerBoards();
+                    System.out.println("Quel Boards souhaitez-vous afficher ?");
+                    int afficherid = Integer.parseInt(entree.nextLine());
+                    System.out.println();
+                    db.montrerBoard(afficherid);
                     break;
                 case "4":
                     db.ajouterBoard();
                     break;
                 case "5":
-                    db.enleverBoard();
+                    db.listerBoards();
+                    System.out.println("Quel Boards souhaitez-vous supprimer ?");
+                    int suppid = Integer.parseInt(entree.nextLine());
+                    System.out.println();
+                    db.enleverBoard(suppid);
                     break;
+
                 case "6":
                     encore = false;
                     break;

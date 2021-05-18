@@ -15,9 +15,9 @@ import java.util.Set;
  */
 public class Board {
 
-    String nom;
-    int ligne;
-    int colonne;
+    public String nom;
+    public int ligne;
+    public int colonne;
 
     public Set<Position> mur = new HashSet<>();
     public Set<Position> caisse = new HashSet<>();
