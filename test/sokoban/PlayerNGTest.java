@@ -14,117 +14,64 @@ import org.testng.annotations.Test;
  */
 public class PlayerNGTest {
     
-    public PlayerNGTest() {
-    }
-
-    /**
-     * Test of textbuilder method, of class Player.
-     */
-    @Test
-    public void testTextbuilder() throws Exception {
-        System.out.println("textbuilder");
-        Board expResult = null;
-        Board result = Player.textbuilder();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of filebuilder method, of class Player.
-     */
-    @Test
-    public void testFilebuilder() throws Exception {
-        System.out.println("filebuilder");
-        Board expResult = null;
-        Board result = Player.filebuilder();
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of EffectuerMouvement method, of class Player.
-     */
-    @Test
-    public void testEffectuerMouvement() {
-        System.out.println("EffectuerMouvement");
-        Board b = null;
-        Player.EffectuerMouvement(b);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+       static Board textbuilder() throws BuilderException {
+        var builder = new TextBoardBuilder("A Simple Board");
+        builder.addRow("##########");
+        builder.addRow("#.x.x#...#");
+        builder.addRow("#...CC..P#");
+        builder.addRow("#........#");
+        builder.addRow("##########");
+        Board b = builder.build();
+        return b;
     }
 
     /**
      * Test of Deplacement method, of class Player.
+     * @throws sokoban.BuilderException
      */
     @Test
-    public void testDeplacement() {
+    public void testDeplacement() throws BuilderException {
         System.out.println("Deplacement");
-        Board b = null;
-        Direction d = null;
+        Board b = textbuilder();
+        Direction d = Direction.NORD;
         Player.Deplacement(b, d);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-
-    /**
-     * Test of BougerCaisse method, of class Player.
-     */
-    @Test
-    public void testBougerCaisse() {
-        System.out.println("BougerCaisse");
-        Board b = null;
-        Position p = null;
-        Position p2 = null;
-        Direction d = null;
-        Player.BougerCaisse(b, p, p2, d);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        assertEquals(b.joueur, new Position(1,8));
     }
 
     /**
      * Test of CollisionMur method, of class Player.
+     * @throws sokoban.BuilderException
      */
     @Test
-    public void testCollisionMur() {
+    public void testCollisionMur() throws BuilderException {
         System.out.println("CollisionMur");
-        Board b = null;
-        Position p = null;
+        Board b =  textbuilder();
+        Position p = b.joueur;
         boolean expResult = false;
         boolean result = Player.CollisionMur(b, p);
         assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Position p2 = new Position(0,0);
+        boolean expResult2 = true;
+        boolean result2 = Player.CollisionMur(b, p2);
+        assertEquals(result2, expResult2);
+        
     }
 
     /**
      * Test of CollisionCaisse method, of class Player.
+     * @throws sokoban.BuilderException
      */
     @Test
-    public void testCollisionCaisse() {
+    public void testCollisionCaisse() throws BuilderException {
         System.out.println("CollisionCaisse");
-        Board b = null;
-        Position p = null;
+        Board b = textbuilder();
+        Position p = b.joueur;
         boolean expResult = false;
         boolean result = Player.CollisionCaisse(b, p);
         assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
+        Position p2 = new Position(2,5);
+        boolean expResult2 = true;
+        boolean result2 = Player.CollisionCaisse(b, p2);
+        assertEquals(result2, expResult2);
     }
-
-    /**
-     * Test of VerifVictoire method, of class Player.
-     */
-    @Test
-    public void testVerifVictoire() {
-        System.out.println("VerifVictoire");
-        Board b = null;
-        boolean expResult = false;
-        boolean result = Player.VerifVictoire(b);
-        assertEquals(result, expResult);
-        // TODO review the generated test code and remove the default call to fail.
-        fail("The test case is a prototype.");
-    }
-    
 }

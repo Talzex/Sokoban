@@ -24,6 +24,8 @@ public class Board {
     public Set<Position> cibles = new HashSet<>();
 
     public Position joueur;
+    
+    String[][] content;
 
     /**
      * Constructeur de la classe Board
@@ -39,10 +41,11 @@ public class Board {
     }
 
     /**
-     * Méthode permettant d'afficher les positions contenu dans nos ensemble
+     * Méthode permettant de remplir le tableau d'affichage des éléments à
+     * partir des Ensembles.
      */
-    void dessinerContenu() {
-        String[][] content = new String[ligne][colonne];
+    void RemplirTableau(){
+        content =  new String[ligne][colonne];
         for (String[] row : content) {
             Arrays.fill(row, ".");
         }
@@ -56,6 +59,12 @@ public class Board {
             content[condition.row][condition.col] = "C";
         });
         content[joueur.row][joueur.col] = "P";
+    }
+    /**
+     * Méthode d'afficher le board
+     */
+    void dessinerContenu() {
+        RemplirTableau();
         for (int i = 0; i < ligne; i++) {
             System.out.print(i + " ");
             for (int u = 0; u < colonne; u++) {
@@ -65,6 +74,8 @@ public class Board {
         }
 
     }
+    
+    
 
     /**
      * Méthode permettant d'afficher les colonnes sur le haut de notre Board

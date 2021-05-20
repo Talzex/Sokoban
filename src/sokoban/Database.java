@@ -20,6 +20,9 @@ public class Database {
 
     public Connection c;
 
+    /**
+     * Constructeur de la classe Database
+     */
     public Database() {
         String chemin = "data/librairie.sqlite3";
         String URL = "jdbc:sqlite:" + chemin;
@@ -31,7 +34,9 @@ public class Database {
             System.out.println(" Base " + URL + " introuvable.");
         }
     }
-
+    /**
+     * Méthode permettant de charger le pilote SqLite
+     */
     private void chargerPiloteSQLite() {
         String sqlite_driver = "SQLite-jdbc-3.34.0.jar";
         try {
@@ -42,60 +47,117 @@ public class Database {
         }
     }
 
+    /**
+     * Méthode permettant de créér une base de données
+     */
     public void creerDB() throws SQLException {
         Statement s = c.createStatement();
         String sql = "create table if not exists boards (board_id integer PRIMARY KEY,name text NOT NULL,nb_rows integer NOT NULL, nb_cols integer NOT NULL )";
         s.execute(sql);
-        String sql2 = "create table if not exists rows (board_id integer PRIMARY KEY,description text NOT NULL)";
+        String sql2 = "create table if not exists rows (board_id integer , row_num integer NOT NULL, description text NOT NULL)";
         s.execute(sql2);
         System.out.println("Base de Données créée avec succès");
-
+    }
+    
+    /**
+     * Méthode permettant de supprimer la base de données
+     */
+    void supprimerDB() throws SQLException {
+        Statement s = c.createStatement();
+        String sql = "drop table if exists boards";
+        s.execute(sql);
+        String sql2 = "drop table if exists rows";
+        s.execute(sql2);
+        System.out.println("Base de Données supprimé avec succès");
     }
 
-    void listerBoards() throws SQLException {
-        Statement statement = c.createStatement();
-        ResultSet resultats = statement.executeQuery("select * from boards");
-        while (resultats.next()) {
-            int id = resultats.getInt("board_id");
-            String name = resultats.getString("name");
-            int nblig = resultats.getInt("nb_rows");
-            int nbcol = resultats.getInt("nb_cols");
-            System.out.format("%d - %s %s %s", id, name, nblig, nbcol);
-            System.out.println("");
+    /**
+     * Méthode permettant de lister les différents Boards
+     */
+    void listerBoards() {
+        try {
+            Statement statement = c.createStatement();
+            ResultSet resultats = statement.executeQuery("select * from boards");
+            while (resultats.next()) {
+                int id = resultats.getInt("board_id");
+                String name = resultats.getString("name");
+                int nblig = resultats.getInt("nb_rows");
+                int nbcol = resultats.getInt("nb_cols");
+                System.out.format("%d - %s %s %s", id, name, nblig, nbcol);
+                System.out.println("");
+            }
+            resultats.close();
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas.");
         }
-        resultats.close();
     }
 
+    /**
+     * Méthode permettant d'afficher le Board sur lequelle le joueur
+     * souhaite jouer
+     */
     void montrerBoard(int id) {
         
     }
 
-    void ajouterBoard() throws BuilderException, SQLException {
-        var filebuilder = new FileBoardBuilder(".\\data\\level1.txt");
-        Board b = filebuilder.build();
-        PreparedStatement prep = c.prepareStatement("insert into boards values (?, ?, ?, ?);");
-        PreparedStatement prep2 = c.prepareStatement("insert into rows values (?,?);");
-        
-        prep.setInt(1, 1);
-        prep.setString(2, b.nom);
-        prep.setInt(3, b.ligne);
-        prep.setInt(4, b.colonne);
-        prep.execute();
-        
-        prep2.setInt(1, 1);
-        //prep2.setString(2, );
-        //prep2.execute();
-        
-
+    /**
+     * Méthode permettant d'ajouter un Board à la base
+     */
+    void ajouterBoard(Board b)  {
+        try {
+            boolean exist = false;
+            int id = 0;
+            Statement statement = c.createStatement();
+            PreparedStatement prep = c.prepareStatement("insert into boards values (?, ?, ?, ?)");
+            PreparedStatement prep2 = c.prepareStatement("insert into rows values (?,?,?) ");
+            ResultSet resultats = statement.executeQuery("select * from boards");
+            while(resultats.next()){
+                if(b.nom.equals(resultats.getString("name"))){
+                    exist = true;
+                }
+                if(id <= resultats.getInt("board_id")){
+                    id = resultats.getInt("board_id")+1;
+                }
+            }
+            prep.setInt(1, id);
+            prep.setString(2, b.nom);
+            prep.setInt(3, b.ligne);
+            prep.setInt(4, b.colonne);
+            prep.execute();
+            
+            prep2.setInt(1, id);
+            String row;
+            for (int i = 0; i < b.ligne; i++) {
+                row = "";
+                for (int u = 0; u < b.colonne; u++) {
+                    row = row.concat(b.content[i][u]);
+                }
+                
+                prep2.setInt(2, i);
+                prep2.setString(3, row);
+                prep2.execute();
+            }
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas.");
+        }
     }
 
-    void enleverBoard(int id) throws SQLException {
-        PreparedStatement prep = c.prepareStatement("delete from boards where board_id = ?");
-        PreparedStatement prep2 = c.prepareStatement("delete from rows where board_id = ?");
-        prep.setInt(1, id);
-        prep2.setInt(1, id);
-        prep.execute();
-        prep2.execute();
-        System.out.println("Le board avec l'id " + id + " vient d'être suprimmé" );
+    /**
+     * Méthode permettant d'enlever un Board de la base
+     */
+    void enleverBoard(int id) {
+        try {
+            PreparedStatement prep = c.prepareStatement("delete from boards where board_id = ?");
+            PreparedStatement prep2 = c.prepareStatement("delete from rows where board_id = ?");
+            prep.setInt(1, id);
+            prep2.setInt(1, id);
+            prep.execute();
+            prep2.execute();
+            System.out.println("Le board avec l'id " + id + " vient d'être suprimmé");
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas.");
+        }
     }
+
+    
 }

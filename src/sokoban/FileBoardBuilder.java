@@ -16,10 +16,11 @@ import java.util.Scanner;
 public class FileBoardBuilder implements Builder {
 
     final String chemin;
-    String ligne;
+    final String name;
 
-    public FileBoardBuilder(String chemin) {
+    public FileBoardBuilder(String chemin, String name) {
         this.chemin = chemin;
+        this.name = name;
     }
 
     /**
@@ -32,9 +33,9 @@ public class FileBoardBuilder implements Builder {
         Board b = null;
         try ( Scanner scanner = new Scanner(new File(chemin))) {
 
-            TextBoardBuilder board = new TextBoardBuilder("File Builder");
+            TextBoardBuilder board = new TextBoardBuilder(name);
             while (scanner.hasNextLine()) {
-                board.addRow(scanner.nextLine());
+                board.addRow(scanner.nextLine().trim());
             }
             b = board.build();
         } catch (FileNotFoundException ex) {

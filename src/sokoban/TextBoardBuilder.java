@@ -13,7 +13,7 @@ public class TextBoardBuilder implements Builder {
 
     String nom;
     String niveau = "";
-    int colonne = 0;
+    int colonne = 0 ;
     int ligne = 0;
 
     TextBoardBuilder(String name) {
@@ -26,7 +26,7 @@ public class TextBoardBuilder implements Builder {
      */
     void addRow(String row) {
         ligne++;
-        colonne = row.length()-1;
+        colonne = row.length();
         niveau = niveau.concat(row);
     }
 
@@ -51,6 +51,7 @@ public class TextBoardBuilder implements Builder {
                     }
                     o++;
                 }
+                
             }
             if(b.caisse.size() != b.cibles.size()){
                 throw new BuilderException("Il n'y a pas le même nombre de caisses et de cibles");

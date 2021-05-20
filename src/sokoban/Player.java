@@ -22,6 +22,9 @@ public class Player {
         play();
     }
 
+    /**
+     * Méthode permettant de lancer une partie
+     */
     public static void play() {
         try {
             Board b = filebuilder();
@@ -38,7 +41,10 @@ public class Player {
         } catch (BuilderException | NullPointerException e) {}
         
     }
-
+    /**
+     * Méthode permettant de faire appel aux différentes méthodes
+     * pour convertir un succession de ligne texte en un Board.
+     */
      static Board textbuilder() throws BuilderException {
         var builder = new TextBoardBuilder("A Simple Board");
         builder.addRow("##########");
@@ -49,9 +55,13 @@ public class Player {
         Board b = builder.build();
         return b;
     }
+     /**
+     * Méthode permettant de faire appel aux différentes méthodes
+     * pour convertir un fichier texte en Board.
+     */
     
      static Board filebuilder() throws BuilderException{
-        var filebuilder = new FileBoardBuilder(".\\data\\level1.txt");
+        var filebuilder = new FileBoardBuilder(".\\data\\level1.txt", "level_1");
         Board b = filebuilder.build();
         return b;
     }
@@ -85,7 +95,7 @@ public class Player {
      */
      static void EffectuerMouvement(Board b) {
         System.out.println("> Quelle série de mouvements voulez-vous effectuer ? U,D,L,R ");
-        String coupSaisi = LireSaisieMouvement(b).toUpperCase();
+        String coupSaisi = LireSaisieMouvement(b).toUpperCase().trim();
         for (int i = 0; i < coupSaisi.length(); i++) {
             switch (coupSaisi.charAt(i)) {
                 case 'U':Deplacement(b, Direction.NORD);break;
@@ -96,6 +106,17 @@ public class Player {
                 default:System.out.println("Saisie Incorrecte");
             }
         }
+    }
+     
+     /**
+     * Méthode permettant de lire le choix du joueur.
+     *
+     * @param b, Board sur lequelle on joue
+     * @return la Position choisit
+     */
+     private static String LireSaisieMouvement(Board b) {
+        String coupSaisi = in .nextLine();
+        return coupSaisi;
     }
 
     /**
@@ -160,16 +181,6 @@ public class Player {
             caisse = true;
         }
         return caisse;
-    }
-    /**
-     * Méthode permettant de lire le choix du joueur.
-     *
-     * @param b, Board sur lequelle on joue
-     * @return la Position choisit
-     */
-     private static String LireSaisieMouvement(Board b) {
-        String coupSaisi = in .nextLine();
-        return coupSaisi;
     }
 
     /**

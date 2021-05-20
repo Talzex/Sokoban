@@ -13,7 +13,7 @@ public class Position {
      int row, col;
 
     /**
-     * Constructeur de la classe Position utilisant 2 paramètres entiers.
+     * Constructeur de la classe Position
      *
      * @param row colonne de notre plateau
      * @param col ligne de notre plateau
