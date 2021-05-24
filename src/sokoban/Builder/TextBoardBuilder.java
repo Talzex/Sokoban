@@ -54,7 +54,7 @@ public class TextBoardBuilder implements Builder {
                 throw new BuilderException("Il n'y a pas le même nombre de caisses et de cibles");
             }
         } catch (StringIndexOutOfBoundsException e) {
-            throw new BuilderException("Toute les lignes ne sont égales entre elles");
+            throw new BuilderException("Toute les lignes n'ont pas la même longueur");
         }
         return b;
     }

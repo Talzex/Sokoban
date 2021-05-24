@@ -56,7 +56,7 @@ public class Board {
         content[joueur.row][joueur.col] = "P";
     }
     /**
-     * Méthode d'afficher le board
+     * Méthode permettant d'afficher le board
      */
     public void dessinerContenu() {
         RemplirTableau();

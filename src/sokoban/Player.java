@@ -4,8 +4,6 @@ import sokoban.Database.Database;
 import sokoban.Board.Position;
 import sokoban.Board.Direction;
 import sokoban.Board.Board;
-import sokoban.Builder.TextBoardBuilder;
-import sokoban.Builder.FileBoardBuilder;
 import sokoban.Builder.BuilderException;
 import java.util.Scanner;
 
@@ -48,49 +46,12 @@ public class Player {
         
     }
     /**
-     * Méthode permettant de faire appel aux différentes méthodes
-     * pour convertir un succession de ligne texte en un Board.
-     */
-     static Board textbuilder() throws BuilderException {
-        var builder = new TextBoardBuilder("A Simple Board");
-        builder.addRow("##########");
-        builder.addRow("#.x.x#...#");
-        builder.addRow("#...CC.P.#");
-        builder.addRow("#........#");
-        builder.addRow("##########");
-        Board b = builder.build();
-        return b;
-    }
-     /**
-     * Méthode permettant de faire appel aux différentes méthodes
-     * pour convertir un fichier texte en Board.
-     */
-    
-     static Board filebuilder() throws BuilderException{
-        var filebuilder = new FileBoardBuilder(".\\data\\level1.txt", "level_1");
-        Board b = filebuilder.build();
-        return b;
-    }
-    /**
      * Dessine le plateau 
      * @param b, le Board
      */
      static void dessinerPlateau(Board b) {
 
         b.dessinerLigne();
-        /*b.addHorizontalWall(0, 2, 4);
-        b.addHorizontalWall(1, 0, 3);
-        b.addHorizontalWall(1, 5, 4);
-        b.addVerticalWall(2, 0, 4);
-        b.addVerticalWall(2, 8, 4);
-        b.addHorizontalWall(5, 1, 7);
-        b.addVerticalWall(3, 2, 1);
-        b.addVerticalWall(3, 5, 2);
-        b.addTarget(2, 2);
-        b.addTarget(3, 3);
-        b.addBox(2, 6);
-        b.addBox(2, 5);
-        b.setPosition(4, 6);*/
         b.dessinerContenu();
     }
 
