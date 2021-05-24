@@ -6,7 +6,6 @@
 package sokoban;
 
 import java.io.File;
-import java.sql.SQLException;
 import java.util.Scanner;
 
 /**
@@ -21,10 +20,8 @@ public class Administrator {
     /**
      * 
      * @param args the command line arguments
-     * @throws java.sql.SQLException
-     * @throws sokoban.BuilderException
      */
-    public static void main(String[] args) throws SQLException, BuilderException {
+    public static void main(String[] args){
         boolean encore = true;
         while (encore) {
             System.out.println("ADMINISTRATION INTERFACE - USE WITH CAUTION");
@@ -34,7 +31,8 @@ public class Administrator {
             System.out.println("3. Show board");
             System.out.println("4. Add board from file");
             System.out.println("5. Remove board from database [DANGEROUS]");
-            System.out.println("6. Quit.");
+            System.out.println("6. Remove database [DANGEROUS]");
+            System.out.println("7. Quit.");
             System.out.println("Votre choix ?");
 
             String commande = entree.nextLine();
@@ -56,28 +54,31 @@ public class Administrator {
 
     /**
      * Ajoute un fichier à la base
-     * @throws sokoban.BuilderException
      */
-    private static void add() throws BuilderException{
-        File file = listerFichier();
-        Board b = FiletoBoard(file);
-        db.ajouterBoard(b);
+    private static void add() {
+        try {
+            File file = listerFichier();
+            Board b = FiletoBoard(file);
+            db.ajouterBoard(b);
+        } catch (BuilderException ex) {}
     }
     /**
      * Affiche le Board
-     * @throws sokoban.BuilderException
      */
-    private static void show(){
+    public static void show(){
         db.listerBoards();
         System.out.println("Quel Boards souhaitez-vous afficher ?");
         int afficherid = Integer.parseInt(entree.nextLine());
         System.out.println();
-        db.montrerBoard(afficherid);
+        try {
+            Board b = db.get(afficherid);
+            b.dessinerLigne();
+            b.dessinerContenu(); 
+        } catch (BuilderException ex) {}
     }
     
     /**
      * Enleve un fichier de la base
-     * @throws sokoban.BuilderException
      */
     private static void remove(){
         db.listerBoards();
@@ -93,7 +94,7 @@ public class Administrator {
      * @return b, le Board
      * @throws BuilderException
      */
-    private static Board FiletoBoard(File file) throws BuilderException {
+    private static Board FiletoBoard(File file) throws BuilderException{
         var filebuilder = new FileBoardBuilder(file.getPath(),file.getName());
         Board b = filebuilder.build();
         b.RemplirTableau();

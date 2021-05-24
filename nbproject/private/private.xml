@@ -4,8 +4,9 @@
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
             <file>file:/V:/S2/POO/Sokoban/src/sokoban/Player.java</file>
-            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Direction.java</file>
-            <file>file:/V:/S2/POO/Sokoban/test/sokoban/PlayerNGTest.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Administrator.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/BuilderException.java</file>
+            <file>file:/V:/S2/POO/Sokoban/src/sokoban/Database.java</file>
         </group>
     </open-files>
 </project-private>

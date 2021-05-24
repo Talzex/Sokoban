@@ -34,6 +34,7 @@ public class Database {
             System.out.println(" Base " + URL + " introuvable.");
         }
     }
+
     /**
      * Méthode permettant de charger le pilote SqLite
      */
@@ -50,25 +51,33 @@ public class Database {
     /**
      * Méthode permettant de créér une base de données
      */
-    public void creerDB() throws SQLException {
-        Statement s = c.createStatement();
-        String sql = "create table if not exists boards (board_id integer PRIMARY KEY,name text NOT NULL,nb_rows integer NOT NULL, nb_cols integer NOT NULL )";
-        s.execute(sql);
-        String sql2 = "create table if not exists rows (board_id integer , row_num integer NOT NULL, description text NOT NULL)";
-        s.execute(sql2);
-        System.out.println("Base de Données créée avec succès");
+     void creerDB() {
+        try {
+            Statement s = c.createStatement();
+            String sql = "create table if not exists boards (board_id integer PRIMARY KEY,name text NOT NULL,nb_rows integer NOT NULL, nb_cols integer NOT NULL )";
+            s.execute(sql);
+            String sql2 = "create table if not exists rows (board_id integer , row_num integer NOT NULL, description text NOT NULL)";
+            s.execute(sql2);
+            System.out.println("Base de Données créée avec succès");
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas");
+        }
     }
-    
+
     /**
      * Méthode permettant de supprimer la base de données
      */
-    void supprimerDB() throws SQLException {
-        Statement s = c.createStatement();
-        String sql = "drop table if exists boards";
-        s.execute(sql);
-        String sql2 = "drop table if exists rows";
-        s.execute(sql2);
-        System.out.println("Base de Données supprimé avec succès");
+    void supprimerDB() {
+        try {
+            Statement s = c.createStatement();
+            String sql = "drop table if exists boards";
+            s.execute(sql);
+            String sql2 = "drop table if exists rows";
+            s.execute(sql2);
+            System.out.println("Base de Données supprimé avec succès");
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas");
+        }
     }
 
     /**
@@ -93,17 +102,35 @@ public class Database {
     }
 
     /**
-     * Méthode permettant d'afficher le Board sur lequelle le joueur
-     * souhaite jouer
+     * Méthode permettant de créer un Board à partir des données
+     * de la base.
+     *
+     * @param id, le Board choisi
+     * @return b, le Board créer
+     * @throws sokoban.BuilderException
      */
-    void montrerBoard(int id) {
-        
+     Board get(int id) throws BuilderException {
+        var builder = new TextBoardBuilder("" + id);
+        Board b = null;
+        try {
+            PreparedStatement prep = c.prepareStatement("select description from rows where board_id = ?");
+            prep.setInt(1, id);
+            ResultSet r = prep.executeQuery();
+            while (r.next()) {
+                String desc = r.getString("description");
+                builder.addRow(desc);
+            }
+            b = builder.build();
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas");
+        }
+        return b;
     }
 
     /**
      * Méthode permettant d'ajouter un Board à la base
      */
-    void ajouterBoard(Board b)  {
+    void ajouterBoard(Board b) {
         try {
             boolean exist = false;
             int id = 0;
@@ -111,12 +138,12 @@ public class Database {
             PreparedStatement prep = c.prepareStatement("insert into boards values (?, ?, ?, ?)");
             PreparedStatement prep2 = c.prepareStatement("insert into rows values (?,?,?) ");
             ResultSet resultats = statement.executeQuery("select * from boards");
-            while(resultats.next()){
-                if(b.nom.equals(resultats.getString("name"))){
+            while (resultats.next()) {
+                if (b.nom.equals(resultats.getString("name"))) {
                     exist = true;
                 }
-                if(id <= resultats.getInt("board_id")){
-                    id = resultats.getInt("board_id")+1;
+                if (id <= resultats.getInt("board_id")) {
+                    id = resultats.getInt("board_id") + 1;
                 }
             }
             prep.setInt(1, id);
@@ -124,7 +151,7 @@ public class Database {
             prep.setInt(3, b.ligne);
             prep.setInt(4, b.colonne);
             prep.execute();
-            
+
             prep2.setInt(1, id);
             String row;
             for (int i = 0; i < b.ligne; i++) {
@@ -132,7 +159,7 @@ public class Database {
                 for (int u = 0; u < b.colonne; u++) {
                     row = row.concat(b.content[i][u]);
                 }
-                
+
                 prep2.setInt(2, i);
                 prep2.setString(3, row);
                 prep2.execute();
@@ -159,5 +186,4 @@ public class Database {
         }
     }
 
-    
 }

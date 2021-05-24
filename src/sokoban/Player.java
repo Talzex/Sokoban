@@ -6,7 +6,6 @@
 package sokoban;
 
 import java.util.Scanner;
-
 /**
  *
  * @author tduthil
@@ -14,6 +13,7 @@ import java.util.Scanner;
 public class Player {
 
     static Scanner in = new Scanner(System.in);
+    static Database db = new Database();
     /**
      * 
      * @param args the command line arguments
@@ -27,7 +27,11 @@ public class Player {
      */
     public static void play() {
         try {
-            Board b = filebuilder();
+            db.listerBoards();
+            System.out.println("Avec quel board souhaitez-vous jouer ?");
+            int afficherid = Integer.parseInt(in.nextLine());
+            System.out.println();
+            Board b = db.get(afficherid);
             boolean win;
             dessinerPlateau(b);
             do {
