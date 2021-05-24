@@ -1,10 +1,10 @@
 package sokoban;
 
-import sokoban.Database.Database;
-import sokoban.Board.Position;
-import sokoban.Board.Direction;
-import sokoban.Board.Board;
-import sokoban.Builder.BuilderException;
+import sokoban.Databases.Database;
+import sokoban.Boards.Position;
+import sokoban.Boards.Direction;
+import sokoban.Boards.Board;
+import sokoban.Builders.BuilderException;
 import java.util.Scanner;
 
 /**
@@ -27,7 +27,7 @@ public class Player {
      */
     public static void play() {
         try {
-            db.listerBoards();
+            db.showallBoard();
             System.out.println("Avec quel board souhaitez-vous jouer ?");
             int afficherid = Integer.parseInt(in.nextLine());
             System.out.println();

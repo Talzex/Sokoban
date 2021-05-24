@@ -1,8 +1,8 @@
-package sokoban.Builder;
+package sokoban.Builders;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
-import sokoban.Board.Board;
+import sokoban.Boards.Board;
 
 /**
  *

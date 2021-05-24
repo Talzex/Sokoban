@@ -1,5 +1,5 @@
-package sokoban.Builder;
-import sokoban.Board.Board;
+package sokoban.Builders;
+import sokoban.Boards.Board;
 /**
  *
  * @author tduthil

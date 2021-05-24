@@ -1,4 +1,4 @@
-package sokoban.Board;
+package sokoban.Boards;
 
 /**
  *

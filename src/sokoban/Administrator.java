@@ -1,9 +1,9 @@
 package sokoban;
 
-import sokoban.Database.Database;
-import sokoban.Board.Board;
-import sokoban.Builder.FileBoardBuilder;
-import sokoban.Builder.BuilderException;
+import sokoban.Databases.Database;
+import sokoban.Boards.Board;
+import sokoban.Builders.FileBoardBuilder;
+import sokoban.Builders.BuilderException;
 import java.io.File;
 import java.util.Scanner;
 

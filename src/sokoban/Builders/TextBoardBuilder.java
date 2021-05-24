@@ -1,6 +1,6 @@
-package sokoban.Builder;
-import sokoban.Board.Board;
-import sokoban.Board.Position;
+package sokoban.Builders;
+import sokoban.Boards.Board;
+import sokoban.Boards.Position;
 
 /**
  *

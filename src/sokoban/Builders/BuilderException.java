@@ -1,4 +1,4 @@
-package sokoban.Builder;
+package sokoban.Builders;
 
 /**
  *

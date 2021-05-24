@@ -1,8 +1,8 @@
-package sokoban.Database;
+package sokoban.Databases;
 
-import sokoban.Board.Board;
-import sokoban.Builder.TextBoardBuilder;
-import sokoban.Builder.BuilderException;
+import sokoban.Boards.Board;
+import sokoban.Builders.TextBoardBuilder;
+import sokoban.Builders.BuilderException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -104,7 +104,7 @@ public class Database {
      *
      * @param id, le Board choisi
      * @return b, le Board créer
-     * @throws sokoban.Builder.BuilderException
+     * @throws sokoban.Builders.BuilderException
      */
     public Board get(int id) throws BuilderException {
         var builder = new TextBoardBuilder("" + id);
@@ -122,6 +122,25 @@ public class Database {
             System.out.println("La base de données n'existe pas");
         }
         return b;
+    }
+    
+    /**
+     * Méthode permettant d'afficher tout les boards présent dans la base.
+     */
+    public void showallBoard()  {
+        try {
+            Statement statement = c.createStatement();
+            ResultSet resultats = statement.executeQuery("select * from rows");
+            while (resultats.next()) {
+                int id = resultats.getInt("board_id");
+                String desc = resultats.getString("description");
+                System.out.format("%d - %s", id, desc);
+                System.out.println("");
+            }
+            resultats.close();
+        } catch (SQLException ex) {
+            System.out.println("La base de données n'existe pas.");
+        }
     }
 
     /**
