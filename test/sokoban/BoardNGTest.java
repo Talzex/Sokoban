@@ -5,6 +5,8 @@
  */
 package sokoban;
 
+import sokoban.Board.Position;
+import sokoban.Board.Board;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 

@@ -5,6 +5,11 @@
  */
 package sokoban;
 
+import sokoban.Board.Position;
+import sokoban.Board.Direction;
+import sokoban.Board.Board;
+import sokoban.Builder.TextBoardBuilder;
+import sokoban.Builder.BuilderException;
 import static org.testng.Assert.*;
 import org.testng.annotations.Test;
 

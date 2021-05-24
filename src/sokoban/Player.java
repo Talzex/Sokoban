@@ -1,11 +1,14 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sokoban;
 
+import sokoban.Database.Database;
+import sokoban.Board.Position;
+import sokoban.Board.Direction;
+import sokoban.Board.Board;
+import sokoban.Builder.TextBoardBuilder;
+import sokoban.Builder.FileBoardBuilder;
+import sokoban.Builder.BuilderException;
 import java.util.Scanner;
+
 /**
  *
  * @author tduthil
@@ -15,7 +18,6 @@ public class Player {
     static Scanner in = new Scanner(System.in);
     static Database db = new Database();
     /**
-     * 
      * @param args the command line arguments
      */
     public static void main(String[] args) {

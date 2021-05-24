@@ -1,9 +1,6 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package sokoban;
+package sokoban.Builder;
+import sokoban.Board.Board;
+import sokoban.Board.Position;
 
 /**
  *
@@ -16,15 +13,16 @@ public class TextBoardBuilder implements Builder {
     int colonne = 0 ;
     int ligne = 0;
 
-    TextBoardBuilder(String name) {
+    public TextBoardBuilder(String name) {
         this.nom = name;
     }
     
     /**
      * Méthode determinant le nombre de ligne et de colonne de notre future Board
      * en concatenant toutes les lignes en une seule.
+     * @param row
      */
-    void addRow(String row) {
+    public void addRow(String row) {
         ligne++;
         colonne = row.length();
         niveau = niveau.concat(row);
@@ -51,7 +49,6 @@ public class TextBoardBuilder implements Builder {
                     }
                     o++;
                 }
-                
             }
             if(b.caisse.size() != b.cibles.size()){
                 throw new BuilderException("Il n'y a pas le même nombre de caisses et de cibles");
@@ -61,5 +58,4 @@ public class TextBoardBuilder implements Builder {
         }
         return b;
     }
-
 }

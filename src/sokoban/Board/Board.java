@@ -1,9 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package sokoban;
+package sokoban.Board;
 
 import java.util.Arrays;
 import java.util.HashSet;
@@ -25,7 +20,7 @@ public class Board {
 
     public Position joueur;
     
-    String[][] content;
+    public String[][] content;
 
     /**
      * Constructeur de la classe Board
@@ -34,7 +29,7 @@ public class Board {
      * @param ligne, le nombre de ligne
      * @param colonne,le nombre de colonnes
      */
-    Board(String nom, int ligne, int colonne) {
+    public Board(String nom, int ligne, int colonne) {
         this.nom = nom;
         this.ligne = ligne;
         this.colonne = colonne;
@@ -44,7 +39,7 @@ public class Board {
      * Méthode permettant de remplir le tableau d'affichage des éléments à
      * partir des Ensembles.
      */
-    void RemplirTableau(){
+    public void RemplirTableau(){
         content =  new String[ligne][colonne];
         for (String[] row : content) {
             Arrays.fill(row, ".");
@@ -63,7 +58,7 @@ public class Board {
     /**
      * Méthode d'afficher le board
      */
-    void dessinerContenu() {
+    public void dessinerContenu() {
         RemplirTableau();
         for (int i = 0; i < ligne; i++) {
             System.out.print(i + " ");
@@ -72,15 +67,12 @@ public class Board {
             }
             System.out.println("");
         }
-
     }
     
-    
-
     /**
      * Méthode permettant d'afficher les colonnes sur le haut de notre Board
      */
-    void dessinerLigne() {
+    public void dessinerLigne() {
         System.out.print("  ");
         for (int i = 0; i < colonne; i++) {
             System.out.print(i);
@@ -91,8 +83,11 @@ public class Board {
     /**
      * Méthode permettant d'ajouter dans notre ensemble mur les positions des
      * murs horizontaux
+     * @param lig, la ligne
+     * @param col, la colonne
+     * @param length, la colonne
      */
-    void addHorizontalWall(int lig, int col, int length) {
+    public void addHorizontalWall(int lig, int col, int length) {
         for (int i = 0; i < length; i++) {
             mur.add(new Position(lig, col + i));
         }
@@ -101,8 +96,11 @@ public class Board {
     /**
      * Méthode permettant d'ajouter dans notre ensemble mur les positions des
      * murs verticaux
+     * @param lig, la ligne
+     * @param col, la colonne
+     * @param length, la longueur
      */
-    void addVerticalWall(int lig, int col, int length) {
+    public void addVerticalWall(int lig, int col, int length) {
         for (int i = 0; i < length; i++) {
             mur.add(new Position(lig + i, col));
         }
@@ -111,23 +109,29 @@ public class Board {
     /**
      * Méthode permettant d'ajouter dans notre ensemble caisse les positions des
      * caisses
+     * @param lig, la ligne
+     * @param col, la colonne
      */
-    void addBox(int lig, int col) {
+    public void addBox(int lig, int col) {
         caisse.add(new Position(lig, col));
     }
 
     /**
      * Méthode permettant d'ajouter dans notre ensemble cibles les positions des
      * cibles
+     * @param lig, la ligne
+     * @param col, la colonne
      */
-    void addTarget(int lig, int col) {
+    public void addTarget(int lig, int col) {
         cibles.add(new Position(lig, col));
     }
 
     /**
      * Méthode permettant d'initialiser la position du Joueur
+     * @param lig, la ligne
+     * @param col, la colonne
      */
-    void setPosition(int lig, int col) {
+    public void setPosition(int lig, int col) {
         joueur = new Position(lig, col);
     }
 
@@ -140,5 +144,4 @@ public class Board {
     public boolean DansBoard(Position p) {
         return p.row >= 0 && p.row < ligne && p.col >= 0 && p.col < colonne;
     }
-
 }

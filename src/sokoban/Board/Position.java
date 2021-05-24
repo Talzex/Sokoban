@@ -1,16 +1,11 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package sokoban;
+package sokoban.Board;
 
 /**
  *
  * @author tduthil
  */
 public class Position {
-     int row, col;
+     public int row, col;
 
     /**
      * Constructeur de la classe Position
@@ -52,5 +47,4 @@ public class Position {
         }
         return true;
     }
-    
 }

@@ -1,10 +1,9 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package sokoban;
 
+import sokoban.Database.Database;
+import sokoban.Board.Board;
+import sokoban.Builder.FileBoardBuilder;
+import sokoban.Builder.BuilderException;
 import java.io.File;
 import java.util.Scanner;
 

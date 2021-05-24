@@ -1,10 +1,8 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-package sokoban;
+package sokoban.Database;
 
+import sokoban.Board.Board;
+import sokoban.Builder.TextBoardBuilder;
+import sokoban.Builder.BuilderException;
 import java.sql.Statement;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -51,7 +49,7 @@ public class Database {
     /**
      * Méthode permettant de créér une base de données
      */
-     void creerDB() {
+    public void creerDB() {
         try {
             Statement s = c.createStatement();
             String sql = "create table if not exists boards (board_id integer PRIMARY KEY,name text NOT NULL,nb_rows integer NOT NULL, nb_cols integer NOT NULL )";
@@ -67,7 +65,7 @@ public class Database {
     /**
      * Méthode permettant de supprimer la base de données
      */
-    void supprimerDB() {
+    public void supprimerDB() {
         try {
             Statement s = c.createStatement();
             String sql = "drop table if exists boards";
@@ -83,7 +81,7 @@ public class Database {
     /**
      * Méthode permettant de lister les différents Boards
      */
-    void listerBoards() {
+    public void listerBoards() {
         try {
             Statement statement = c.createStatement();
             ResultSet resultats = statement.executeQuery("select * from boards");
@@ -102,14 +100,13 @@ public class Database {
     }
 
     /**
-     * Méthode permettant de créer un Board à partir des données
-     * de la base.
+     * Méthode permettant de créer un Board à partir des données de la base.
      *
      * @param id, le Board choisi
      * @return b, le Board créer
-     * @throws sokoban.BuilderException
+     * @throws sokoban.Builder.BuilderException
      */
-     Board get(int id) throws BuilderException {
+    public Board get(int id) throws BuilderException {
         var builder = new TextBoardBuilder("" + id);
         Board b = null;
         try {
@@ -129,8 +126,10 @@ public class Database {
 
     /**
      * Méthode permettant d'ajouter un Board à la base
+     *
+     * @param b
      */
-    void ajouterBoard(Board b) {
+    public void ajouterBoard(Board b) {
         try {
             boolean exist = false;
             int id = 0;
@@ -171,8 +170,10 @@ public class Database {
 
     /**
      * Méthode permettant d'enlever un Board de la base
+     *
+     * @param id
      */
-    void enleverBoard(int id) {
+    public void enleverBoard(int id) {
         try {
             PreparedStatement prep = c.prepareStatement("delete from boards where board_id = ?");
             PreparedStatement prep2 = c.prepareStatement("delete from rows where board_id = ?");
@@ -185,5 +186,4 @@ public class Database {
             System.out.println("La base de données n'existe pas.");
         }
     }
-
 }
