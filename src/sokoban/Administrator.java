@@ -65,15 +65,15 @@ public class Administrator {
      * Affiche le Board
      */
     public static void show(){
+        try { 
         db.listerBoards();
         System.out.println("Quel Boards souhaitez-vous afficher ?");
         int afficherid = Integer.parseInt(entree.nextLine());
         System.out.println();
-        try {
-            Board b = db.get(afficherid);
-            b.dessinerLigne();
-            b.dessinerContenu(); 
-        } catch (BuilderException ex) {}
+        Board b = db.get(afficherid);
+        b.dessinerLigne();
+        b.dessinerContenu(); 
+        } catch (BuilderException | NullPointerException ex){}
     }
     
     /**

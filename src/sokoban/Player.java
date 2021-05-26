@@ -62,7 +62,7 @@ public class Player {
      */
      static void EffectuerMouvement(Board b) {
         System.out.println("> Quelle série de mouvements voulez-vous effectuer ? U,D,L,R ");
-        String coupSaisi = LireSaisieMouvement(b).toUpperCase().trim();
+        String coupSaisi = LireSaisieMouvement().toUpperCase().trim();
         for (int i = 0; i < coupSaisi.length(); i++) {
             switch (coupSaisi.charAt(i)) {
                 case 'U':Deplacement(b, Direction.NORD);break;
@@ -78,10 +78,9 @@ public class Player {
      /**
      * Méthode permettant de lire le choix du joueur.
      *
-     * @param b, Board sur lequelle on joue
      * @return la Position choisit
      */
-     private static String LireSaisieMouvement(Board b) {
+     private static String LireSaisieMouvement() {
         String coupSaisi = in .nextLine();
         return coupSaisi;
     }

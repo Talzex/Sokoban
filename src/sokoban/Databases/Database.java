@@ -22,7 +22,7 @@ public class Database {
      * Constructeur de la classe Database
      */
     public Database() {
-        String chemin = "data/librairie.sqlite3";
+        String chemin = "bd/librairie.sqlite3";
         String URL = "jdbc:sqlite:" + chemin;
         chargerPiloteSQLite();
         try {
@@ -56,7 +56,6 @@ public class Database {
             s.execute(sql);
             String sql2 = "create table if not exists rows (board_id integer , row_num integer NOT NULL, description text NOT NULL)";
             s.execute(sql2);
-            System.out.println("Base de Données créée avec succès");
         } catch (SQLException ex) {
             System.out.println("La base de données n'existe pas");
         }
@@ -72,7 +71,6 @@ public class Database {
             s.execute(sql);
             String sql2 = "drop table if exists rows";
             s.execute(sql2);
-            System.out.println("Base de Données supprimé avec succès");
         } catch (SQLException ex) {
             System.out.println("La base de données n'existe pas");
         }
@@ -200,7 +198,6 @@ public class Database {
             prep2.setInt(1, id);
             prep.execute();
             prep2.execute();
-            System.out.println("Le board avec l'id " + id + " vient d'être suprimmé");
         } catch (SQLException ex) {
             System.out.println("La base de données n'existe pas.");
         }

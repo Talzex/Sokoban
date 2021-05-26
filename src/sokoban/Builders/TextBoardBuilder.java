@@ -53,6 +53,14 @@ public class TextBoardBuilder implements Builder {
             if(b.caisse.size() != b.cibles.size()){
                 throw new BuilderException("Il n'y a pas le même nombre de caisses et de cibles");
             }
+            
+            if(b.joueur == null){
+                throw new BuilderException("Il n'y a pas de joueur");
+            }
+            
+            if(b.caisse.isEmpty() || b.cibles.isEmpty()){
+                throw new BuilderException("Element de jeu manquant");
+            }
         } catch (StringIndexOutOfBoundsException e) {
             throw new BuilderException("Toute les lignes n'ont pas la même longueur");
         }
