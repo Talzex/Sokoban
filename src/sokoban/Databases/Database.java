@@ -148,16 +148,12 @@ public class Database {
      */
     public void ajouterBoard(Board b) {
         try {
-            boolean exist = false;
             int id = 0;
             Statement statement = c.createStatement();
             PreparedStatement prep = c.prepareStatement("insert into boards values (?, ?, ?, ?)");
             PreparedStatement prep2 = c.prepareStatement("insert into rows values (?,?,?) ");
             ResultSet resultats = statement.executeQuery("select * from boards");
             while (resultats.next()) {
-                if (b.nom.equals(resultats.getString("name"))) {
-                    exist = true;
-                }
                 if (id <= resultats.getInt("board_id")) {
                     id = resultats.getInt("board_id") + 1;
                 }
